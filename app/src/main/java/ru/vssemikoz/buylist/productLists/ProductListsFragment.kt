@@ -32,7 +32,7 @@ class ProductListsFragment @Inject constructor(): Fragment(), ProductListsContra
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root: View = inflater.inflate(R.layout.fragment_product_list, container, false)
+        val root: View = inflater.inflate(R.layout.product_list_frag, container, false)
         initViews(root)
 
         return root

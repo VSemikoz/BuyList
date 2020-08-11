@@ -9,7 +9,7 @@ class ProductListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_list)
+        setContentView(R.layout.main_list_act)
         var productListFragment: ProductListsFragment? =
             supportFragmentManager.findFragmentById(R.id.main_list_frame) as ProductListsFragment?
         if (productListFragment == null) {
