@@ -1,6 +1,7 @@
 package ru.vssemikoz.buylist.di
 
 import dagger.Subcomponent
+import ru.vssemikoz.buylist.addEditProduct.AddEditProductFragment
 import ru.vssemikoz.buylist.productLists.ProductListsFragment
 
 
@@ -8,11 +9,13 @@ import ru.vssemikoz.buylist.productLists.ProductListsFragment
     AdapterModule::class,
     PresenterModule::class,
 //    RepositoryModule.class,
-    StorageModule::class
+    StorageModule::class,
 //    IconicStorageModule.class,
-//    NavigatorModule.class,
+    NavigatorModule::class
 //    MapperModule.class
 ])
 public interface FragmentComponent {
     fun inject(fragment: ProductListsFragment?)
+
+    fun inject(fragment: AddEditProductFragment?)
 }
