@@ -11,10 +11,6 @@ class ProductListsPresenter @Inject constructor() : ProductListsContract.Present
     @Inject lateinit var mainApplication: MainApplication
 
 
-    override fun openWindow() {
-        view.openNewWindow()
-    }
-
     override fun setView(view: ProductListsContract.View) {
         this.view = view
     }

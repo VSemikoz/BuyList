@@ -5,20 +5,34 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.vssemikoz.buylist.MainApplication
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.adapters.BaseAdapter
 import ru.vssemikoz.buylist.adapters.ProductAdapter
 import ru.vssemikoz.buylist.models.Product
+import ru.vssemikoz.buylist.utils.navigator.Navigator
 import javax.inject.Inject
 
-class ProductListsFragment @Inject constructor(): Fragment(), ProductListsContract.View {
-    @Inject lateinit var mPresenter: ProductListsContract.Presenter
-    @Inject lateinit var adapter: BaseAdapter<Product>
+class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContract.View {
+    @Inject
+    lateinit var mPresenter: ProductListsContract.Presenter
+    @Inject
+    lateinit var adapter: BaseAdapter<Product>
+    @Inject
+    lateinit var navigator: Navigator
+
     private lateinit var recyclerView: RecyclerView
+    private var addProductFAB: FloatingActionButton? = null
+    private var searchIB: ImageButton? = null
+    private var sendIB: ImageButton? = null
+    private var mainIB: ImageButton? = null
+    private var favoriteIB: ImageButton? = null
+    private var categoryIB: ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("ProductListsFragment", "onCreate")
@@ -28,9 +42,7 @@ class ProductListsFragment @Inject constructor(): Fragment(), ProductListsContra
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val root: View = inflater.inflate(R.layout.product_list_frag, container, false)
         initViews(root)
@@ -40,6 +52,16 @@ class ProductListsFragment @Inject constructor(): Fragment(), ProductListsContra
 
     private fun initViews(root: View) {
         recyclerView = root.findViewById(R.id.rv_product)
+        activity?.apply {
+            searchIB = findViewById(R.id.ib_search)
+            sendIB = findViewById(R.id.ib_send)
+            mainIB = findViewById(R.id.ib_main)
+            favoriteIB = findViewById(R.id.ib_favorite)
+            categoryIB = findViewById(R.id.ib_category)
+            addProductFAB = findViewById(R.id.fab_edit_task_add)
+        }
+
+        addProductFAB?.setOnClickListener { addEditProduct(null) }
         initRecyclerView()
     }
 
@@ -67,9 +89,9 @@ class ProductListsFragment @Inject constructor(): Fragment(), ProductListsContra
     }
 
 
-    override fun openNewWindow() {
-//        val intent = Intent(context, FavoriteListActivity::class.java)
-//        startActivityForResult(intent, 1)
+    override fun addEditProduct(bundle: Bundle?) {
+        Log.d("ProductListsFragment", "openNewWindow")
+        navigator.openAddEditProduct(context!!, bundle)
     }
 
     override fun showProductList(products: List<Product>) {

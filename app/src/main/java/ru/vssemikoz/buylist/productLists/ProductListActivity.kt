@@ -9,13 +9,13 @@ class ProductListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_list_act)
+        setContentView(R.layout.product_list_act)
         var productListFragment: ProductListsFragment? =
-            supportFragmentManager.findFragmentById(R.id.main_list_frame) as ProductListsFragment?
+            supportFragmentManager.findFragmentById(R.id.fl_main_list) as ProductListsFragment?
         if (productListFragment == null) {
             productListFragment = ProductListsFragment()
             ActivityUtils.addFragmentToActivity(
-                supportFragmentManager, productListFragment, R.id.main_list_frame
+                supportFragmentManager, productListFragment, R.id.fl_main_list
             )
         }
     }
