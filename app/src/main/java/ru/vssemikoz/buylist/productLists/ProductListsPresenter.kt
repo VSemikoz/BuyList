@@ -30,6 +30,7 @@ class ProductListsPresenter @Inject constructor() : ProductListsContract.Present
     }
 
     private fun initStartValues() {
+//
 
     }
 
