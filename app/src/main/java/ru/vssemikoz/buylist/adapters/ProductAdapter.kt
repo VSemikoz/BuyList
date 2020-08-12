@@ -1,15 +1,14 @@
 package ru.vssemikoz.buylist.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Index
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.data.IconicStorage
 import ru.vssemikoz.buylist.data.LocalIconicStorage
@@ -69,36 +68,51 @@ class ProductAdapter @Inject constructor(context: Context) : BaseAdapter<Product
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     listener.onRecyclerItemClick(adapterPosition)
                 }
-                    Log.d("ProductViewHolder", "cardView.setOnClickListener")
-//                TODO()
-                }
+            }
+        }
+
+        override fun onBind(item: Product, listener: OnRecyclerItemClickListener?) {
+            productName.text = item.name
+            productPrice.text = item.price.toString()
+            favoriteState = item.isFavorite
+            isAddState = item.isAdd
+
+            when (item.isFavorite) {
+                true -> favoriteStateIB.setImageDrawable(
+                    iconicStorage.getIsFollowedDrawable(
+                        context
+                    )
+                )
+                false -> favoriteStateIB.setImageDrawable(
+                    iconicStorage.getIsUnfollowedDrawable(
+                        context
+                    )
+                )
             }
 
-            override fun onBind(item: Product, listener: OnRecyclerItemClickListener?) {
-                productName.text = item.name
-                productPrice.text = item.price.toString()
-                favoriteState = item.isFavorite
-                isAddState = item.isAdd
-
-                when (item.isFavorite) {
-                    true -> favoriteStateIB.setImageDrawable(
-                        iconicStorage.getIsFollowedDrawable(
-                            context
-                        )
-                    )
-                    false -> favoriteStateIB.setImageDrawable(
-                        iconicStorage.getIsUnfollowedDrawable(
-                            context
-                        )
-                    )
-                }
-
-                when (item.isAdd) {
-                    true -> isAddStateIB.setImageDrawable(iconicStorage.getIsAddDrawwble(context))
-                    false -> isAddStateIB.setImageDrawable(iconicStorage.getIsNotAddDrawwble(context))
-                }
-
+            when (item.isAdd) {
+                true -> isAddStateIB.setImageDrawable(iconicStorage.getIsAddDrawwble(context))
+                false -> isAddStateIB.setImageDrawable(iconicStorage.getIsNotAddDrawwble(context))
             }
 
         }
+
     }
+
+    override fun getTouchHelper(): ItemTouchHelper {
+        return ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                listener?.onRecyclerItemSwipe(position)
+            }
+        })
+    }
+}
