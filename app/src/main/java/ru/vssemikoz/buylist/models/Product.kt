@@ -8,14 +8,14 @@ import java.io.Serializable
 @Entity
 class Product(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
-    val name: String,
-    val price: Double,
-    val category: String,
+    var id: Int? = null,
+    var name: String,
+    var price: Double,
+    var category: String = "default",
     @ColumnInfo(name = "is_favorite")
-    val isFavorite: Boolean = false,
+    var isFavorite: Boolean = false,
     @ColumnInfo(name = "is_add")
-    val isAdd: Boolean = false
+    var isAdd: Boolean = false
 ) :Serializable{
 
     override fun toString(): String {
