@@ -24,4 +24,14 @@ interface ProductDao {
     @Query("DELETE FROM Product")
     fun deleteAll()
 
+    @Query("SELECT * FROM Product WHERE id == :id")
+    fun getProductById(id: Int): List<Product>
+
+    @Query("SELECT * FROM Product WHERE is_favorite == 1")
+    fun getFavoriteProducts(): List<Product>
+
+    @Query("SELECT * FROM Product WHERE is_add == 1")
+    fun getAddedProducts(): List<Product>
+
+
 }

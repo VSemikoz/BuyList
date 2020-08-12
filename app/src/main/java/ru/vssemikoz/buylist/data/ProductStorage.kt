@@ -14,4 +14,9 @@ interface ProductStorage {
 
     fun updateProduct(product: Product)
 
+    fun getProductById(id: Int): Product
+
+    fun getFavoriteProducts(): List<Product>
+
+    fun getAddedProducts(): List<Product>
 }
