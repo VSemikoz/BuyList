@@ -56,29 +56,53 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
             searchIB = findViewById(R.id.ib_search)
             sendIB = findViewById(R.id.ib_send)
             mainIB = findViewById(R.id.ib_main)
-            favoriteIB = findViewById(R.id.ib_favorite)
+            favoriteIB = findViewById(R.id.ib_faworite)
             categoryIB = findViewById(R.id.ib_category)
             addProductFAB = findViewById(R.id.fab_edit_task_add)
         }
 
-        addProductFAB?.setOnClickListener { addEditProduct(null) }
+        addProductFAB?.setOnClickListener { openAddEditProduct(null) }
+        sendIB?.setOnClickListener{ mPresenter.filterIsAddNews()}
+        favoriteIB?.setOnClickListener{ mPresenter.filterFavoriteNews()}
+        mainIB?.setOnClickListener{mPresenter.filterAllProduct()}
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+        adapter.getTouchHelper().attachToRecyclerView(recyclerView)
         adapter.listener = object : ProductAdapter.OnProductItemClickListener {
+
             override fun onRecyclerItemClick(position: Int) {
-                Log.d("ProductListsFragment", "onRecyclerItemClick")
+                val productID = adapter.items?.get(position)?.id
+                navigator.openAddEditProduct(context!!, productID)
             }
 
             override fun onChangeFavoriteStateClick(position: Int) {
-                Log.d("ProductListsFragment", "onChangeFavoriteStateClick")
+                val product = adapter.items?.get(position)?.apply {
+                    isFavorite = !isFavorite
+                }
+                if (product != null) {
+                    mPresenter.updateProduct(product)
+                    adapter.notifyItemChanged(position)
+                }
             }
 
             override fun onChangeIsAddStateClick(position: Int) {
-                Log.d("ProductListsFragment", "onChangeIsAddStateClick")
+                val product = adapter.items?.get(position)?.apply {
+                    isAdd = !isAdd
+                }
+                if (product != null) {
+                    mPresenter.updateProduct(product)
+                    adapter.notifyItemChanged(position)
+                }
+            }
+
+            override fun onRecyclerItemSwipe(position: Int) {
+                adapter.items?.get(position)?.also {
+                    mPresenter.deleteProduct(it)
+                }
             }
         }
     }
@@ -89,18 +113,11 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
     }
 
 
-    override fun addEditProduct(bundle: Bundle?) {
-        Log.d("ProductListsFragment", "openNewWindow")
-        navigator.openAddEditProduct(context!!, bundle)
+    override fun openAddEditProduct(productId: Int?) {
+        navigator.openAddEditProduct(context!!, productId)
     }
 
     override fun showProductList(products: List<Product>) {
-        adapter.items = products
-    }
-
-    override fun setList(products: List<Product>) {
-        Log.d("setList", "$products")
-
         adapter.items = products
         adapter.notifyDataSetChanged()
     }
