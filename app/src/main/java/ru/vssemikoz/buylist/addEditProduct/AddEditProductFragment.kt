@@ -1,7 +1,6 @@
 package ru.vssemikoz.buylist.addEditProduct
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +25,6 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
     private var productCategorySp: Spinner? = null
     private var addEditFAB: FloatingActionButton? = null
 
-    private var showedProduct: Product? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainApplication.getApplicationComponent().fragmentComponent().inject(this)
@@ -44,8 +40,8 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
     }
 
     private fun initViews(root: View) {
-        productNameTV = root.findViewById(R.id.tv_product_name)
-        productPriceTV = root.findViewById(R.id.tv_product_price)
+        productNameTV = root.findViewById(R.id.et_product_name)
+        productPriceTV = root.findViewById(R.id.et_product_price)
         productCategorySp = root.findViewById(R.id.sp_product_category)
         activity?.apply {
             addEditFAB = findViewById(R.id.fab_edit_task_done)
@@ -54,8 +50,8 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
             if (fieldsIsNotEmpty()) {
                 val currProduct = Product(
                     name = productNameTV?.text.toString(),
-                    price = productPriceTV?.text.toString().toDouble(),
-                    category = productCategorySp?.selectedItem.toString()
+                    price = productPriceTV?.text.toString().toDouble()
+//                   TODO category = productCategorySp?.selectedItem.toString()
                 )
                 mPresenter.saveProduct(currProduct)
             } else {
@@ -63,18 +59,22 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
             }
 
         }
+
+        val extras = activity?.intent?.extras
+        if (extras != null) {
+            val id = extras.getInt("productId")
+            mPresenter.setProductToSetById(id)
+        }
+
     }
 
-    fun fieldsIsNotEmpty(): Boolean = productNameTV?.text != "" &&
-            productPriceTV?.text != "" &&
-            productCategorySp?.selectedItem != null
+    private fun fieldsIsNotEmpty(): Boolean = productNameTV?.text != "" &&
+            productPriceTV?.text != ""
+//      TODO      productCategorySp?.selectedItem != null
 
-    override fun showProduct() {
-        if (showedProduct != null) {
-
-        } else {
-            Log.d("AddEditProductFragment", "showProduct")
-        }
+    override fun showProduct(product: Product) {
+        productNameTV?.text = product.name
+        productPriceTV?.text = product.price.toString()
     }
 
     override fun onProductSaved() {

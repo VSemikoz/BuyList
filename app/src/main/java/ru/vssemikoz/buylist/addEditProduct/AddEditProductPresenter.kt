@@ -24,9 +24,13 @@ class AddEditProductPresenter @Inject constructor() : AddEditProductContract.Pre
         view.onProductSaved()
     }
 
+    override fun setProductToSetById(id: Int) {
+        val product = productStorage.getProductById(id)
+        view.showProduct(product)
+    }
+
     override fun subscribe() {
         initStartValues()
-        view.showProduct()
     }
 
     private fun initStartValues() {

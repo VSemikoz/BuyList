@@ -7,7 +7,8 @@ import ru.vssemikoz.buylist.models.Product
 interface AddEditProductContract {
 
     interface View : BaseView<Presenter> {
-        fun showProduct()
+
+        fun showProduct(product: Product)
 
         fun onProductSaved()
 
@@ -18,6 +19,8 @@ interface AddEditProductContract {
         fun setView(view: View)
 
         fun saveProduct(product: Product)
+
+        fun setProductToSetById(id: Int)
 
     }
 }
