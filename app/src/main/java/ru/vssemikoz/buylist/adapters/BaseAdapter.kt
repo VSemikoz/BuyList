@@ -17,7 +17,7 @@ abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseV
     interface OnRecyclerItemClickListener {
         fun onRecyclerItemClick(position: Int)
 
-        fun onRecyclerItemSwipe(position: Int)
+//        fun onRecyclerItemSwipe(position: Int)
     }
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T>
@@ -29,7 +29,7 @@ abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseV
 
     override fun getItemCount(): Int = items?.size ?: 0
 
-    abstract fun getTouchHelper(): ItemTouchHelper
+//    abstract fun getTouchHelper(): ItemTouchHelper
 
     fun deleteItem(position: Int) {
         items!!.toMutableList().let {

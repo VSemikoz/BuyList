@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.data.IconicStorage
-import ru.vssemikoz.buylist.data.LocalIconicStorage
+import ru.vssemikoz.buylist.data.localStorage.LocalIconicStorage
 import ru.vssemikoz.buylist.models.Category
 import javax.inject.Inject
 
 class CategoryAdapter @Inject constructor(context: Context) : BaseAdapter<Category>(context) {
-    var iconicStorage: IconicStorage = LocalIconicStorage()
+    var iconicStorage: IconicStorage =
+        LocalIconicStorage()
 
     public interface OnCategoryItemClickListener : OnRecyclerItemClickListener {
 
@@ -30,12 +31,13 @@ class CategoryAdapter @Inject constructor(context: Context) : BaseAdapter<Catego
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Category> {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryViewHolder(view, listener)
     }
 
     inner class CategoryViewHolder(view: View, listener: OnRecyclerItemClickListener?) :
         BaseViewHolder<Category>(view) {
+        var visibility = false
         val cardView: CardView = view.findViewById(R.id.cv_item)
         val categoryName: TextView = view.findViewById(R.id.tv_category_name)
         val deleteIB: ImageButton = view.findViewById(R.id.iv_delete_category)
@@ -43,7 +45,11 @@ class CategoryAdapter @Inject constructor(context: Context) : BaseAdapter<Catego
 
         init {
             cardView.setOnClickListener {
-                showButtons()
+                when(visibility){
+                    true -> hideButtons()
+                    false -> showButtons()
+                }
+                visibility != visibility
             }
 
             deleteIB.setOnClickListener {
@@ -53,7 +59,7 @@ class CategoryAdapter @Inject constructor(context: Context) : BaseAdapter<Catego
                 }
             }
 
-            deleteIB.setOnClickListener {
+            changeIB.setOnClickListener {
                 listener as OnCategoryItemClickListener
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     listener.onChangeItemClick(adapterPosition)
@@ -63,35 +69,17 @@ class CategoryAdapter @Inject constructor(context: Context) : BaseAdapter<Catego
 
         override fun onBind(item: Category, listener: OnRecyclerItemClickListener?) {
             categoryName.text = item.name
-
         }
 
-        fun hideButtons() {
+        public fun hideButtons() {
             deleteIB.visibility = View.GONE
             changeIB.visibility = View.GONE
         }
 
-        fun showButtons() {
+        public fun showButtons() {
             deleteIB.visibility = View.VISIBLE
             changeIB.visibility = View.VISIBLE
         }
 
-    }
-
-    override fun getTouchHelper(): ItemTouchHelper {
-        return ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                return
-            }
-
-        })
     }
 }

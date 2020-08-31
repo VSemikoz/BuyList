@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.data.IconicStorage
-import ru.vssemikoz.buylist.data.LocalIconicStorage
+import ru.vssemikoz.buylist.data.localStorage.LocalIconicStorage
 import ru.vssemikoz.buylist.models.Product
 import javax.inject.Inject
 
-class ProductAdapter @Inject constructor(context: Context) : BaseAdapter<Product>(context) {
+class ProductAdapter @Inject constructor(context: Context) : TouchHelperAdapter<Product>(context) {
 
-    val iconicStorage: IconicStorage = LocalIconicStorage()
+    val iconicStorage: IconicStorage =
+        LocalIconicStorage()
 
-    public interface OnProductItemClickListener : OnRecyclerItemClickListener {
+    public interface OnProductItemClickListener : OnTHRecyclerItemClickListener {
 
         override fun onRecyclerItemClick(position: Int)
 
@@ -111,7 +112,8 @@ class ProductAdapter @Inject constructor(context: Context) : BaseAdapter<Product
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                listener?.onRecyclerItemSwipe(position)
+                val listener = listener as OnTHRecyclerItemClickListener
+                listener.onRecyclerItemSwipe(position)
             }
         })
     }
