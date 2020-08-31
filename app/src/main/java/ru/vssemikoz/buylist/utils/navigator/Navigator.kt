@@ -1,8 +1,11 @@
 package ru.vssemikoz.buylist.utils.navigator
 
-import android.content.Context
 
 interface Navigator {
 
-    fun openAddEditProduct(context: Context, productId: Int?)
+    fun openAddEditProduct(productId: Int?)
+
+    fun openAddEditCategory(categoryId: Int?)
+
+    fun openCategoryList()
 }
