@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.vssemikoz.buylist.MainApplication
 import ru.vssemikoz.buylist.R
-import ru.vssemikoz.buylist.adapters.BaseAdapter
 import ru.vssemikoz.buylist.adapters.ProductAdapter
-import ru.vssemikoz.buylist.data.AppState
+import ru.vssemikoz.buylist.adapters.TouchHelperAdapter
+import ru.vssemikoz.buylist.models.AppState
 import ru.vssemikoz.buylist.models.Product
 import ru.vssemikoz.buylist.utils.navigator.Navigator
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
     @Inject
     lateinit var mPresenter: ProductListsContract.Presenter
     @Inject
-    lateinit var adapter: BaseAdapter<Product>
+    lateinit var adapter: TouchHelperAdapter<Product>
     @Inject
     lateinit var navigator: Navigator
     var appState: AppState = AppState.MainList
@@ -38,7 +38,6 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
     private var categoryIB: ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("ProductListsFragment", "onCreate")
         super.onCreate(savedInstanceState)
         MainApplication.getApplicationComponent().fragmentComponent().inject(this)
         mPresenter.setView(this)
@@ -61,13 +60,16 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
             mainIB = findViewById(R.id.ib_main)
             favoriteIB = findViewById(R.id.ib_faworite)
             categoryIB = findViewById(R.id.ib_category)
-            addProductFAB = findViewById(R.id.fab_edit_task_add)
+            addProductFAB = findViewById(R.id.fab_product_add)
         }
 
         addProductFAB?.setOnClickListener { openAddEditProduct(null) }
         sendIB?.setOnClickListener { mPresenter.filterIsAddNews() }
         favoriteIB?.setOnClickListener { mPresenter.filterFavoriteNews() }
         mainIB?.setOnClickListener { mPresenter.filterAllProduct() }
+        categoryIB?.setOnClickListener {
+            navigator.openCategoryList()
+        }
         initRecyclerView()
     }
 
@@ -79,7 +81,7 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
 
             override fun onRecyclerItemClick(position: Int) {
                 val productID = adapter.items?.get(position)?.id
-                navigator.openAddEditProduct(context!!, productID)
+                openAddEditProduct(productID)
             }
 
             override fun onChangeFavoriteStateClick(position: Int) {
@@ -122,7 +124,7 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
     }
 
     override fun openAddEditProduct(productId: Int?) {
-        navigator.openAddEditProduct(context!!, productId)
+        navigator.openAddEditProduct(productId)
     }
 
     override fun showProductList(products: List<Product>) {

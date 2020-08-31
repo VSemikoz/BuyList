@@ -2,7 +2,7 @@ package ru.vssemikoz.buylist.productLists
 
 import ru.vssemikoz.buylist.BasePresenter
 import ru.vssemikoz.buylist.BaseView
-import ru.vssemikoz.buylist.data.AppState
+import ru.vssemikoz.buylist.models.AppState
 import ru.vssemikoz.buylist.models.Product
 
 interface ProductListsContract {
