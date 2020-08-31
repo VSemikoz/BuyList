@@ -14,17 +14,20 @@ import ru.vssemikoz.buylist.MainApplication
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.adapters.BaseAdapter
 import ru.vssemikoz.buylist.adapters.ProductAdapter
+import ru.vssemikoz.buylist.data.AppState
 import ru.vssemikoz.buylist.models.Product
 import ru.vssemikoz.buylist.utils.navigator.Navigator
 import javax.inject.Inject
 
 class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContract.View {
+    val TAG = javaClass.name
     @Inject
     lateinit var mPresenter: ProductListsContract.Presenter
     @Inject
     lateinit var adapter: BaseAdapter<Product>
     @Inject
     lateinit var navigator: Navigator
+    var appState: AppState = AppState.MainList
 
     private lateinit var recyclerView: RecyclerView
     private var addProductFAB: FloatingActionButton? = null
@@ -62,9 +65,9 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
         }
 
         addProductFAB?.setOnClickListener { openAddEditProduct(null) }
-        sendIB?.setOnClickListener{ mPresenter.filterIsAddNews()}
-        favoriteIB?.setOnClickListener{ mPresenter.filterFavoriteNews()}
-        mainIB?.setOnClickListener{mPresenter.filterAllProduct()}
+        sendIB?.setOnClickListener { mPresenter.filterIsAddNews() }
+        favoriteIB?.setOnClickListener { mPresenter.filterFavoriteNews() }
+        mainIB?.setOnClickListener { mPresenter.filterAllProduct() }
         initRecyclerView()
     }
 
@@ -85,7 +88,10 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
                 }
                 if (product != null) {
                     mPresenter.updateProduct(product)
-                    adapter.notifyItemChanged(position)
+                    when (appState) {
+                        AppState.FavoriteList -> adapter.deleteItem(position)
+                        else -> adapter.notifyItemChanged(position)
+                    }
                 }
             }
 
@@ -95,7 +101,10 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
                 }
                 if (product != null) {
                     mPresenter.updateProduct(product)
-                    adapter.notifyItemChanged(position)
+                    when (appState) {
+                        AppState.AddList -> adapter.deleteItem(position)
+                        else -> adapter.notifyItemChanged(position)
+                    }
                 }
             }
 
@@ -112,7 +121,6 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
         mPresenter.subscribe()
     }
 
-
     override fun openAddEditProduct(productId: Int?) {
         navigator.openAddEditProduct(context!!, productId)
     }
@@ -122,7 +130,12 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
         adapter.notifyDataSetChanged()
     }
 
+    override fun changeAppState(state: AppState) {
+        appState = state
+    }
+
     override fun setPresenter(presenter: ProductListsContract.Presenter) {
         this.mPresenter = presenter
     }
+
 }

@@ -1,7 +1,7 @@
 package ru.vssemikoz.buylist.productLists
 
-import android.util.Log
 import ru.vssemikoz.buylist.MainApplication
+import ru.vssemikoz.buylist.data.AppState
 import ru.vssemikoz.buylist.data.LocalProductsStorage
 import ru.vssemikoz.buylist.models.Product
 import javax.inject.Inject
@@ -31,17 +31,19 @@ class ProductListsPresenter @Inject constructor() : ProductListsContract.Present
 
     override fun filterIsAddNews() {
         val listOfProducts = productStorage.getAddedProducts()
+        view.changeAppState(AppState.AddList)
         view.showProductList(listOfProducts)
     }
 
     override fun filterFavoriteNews() {
         val listOfProducts = productStorage.getFavoriteProducts()
-        Log.d("filterFavoriteNews", "$listOfProducts")
+        view.changeAppState(AppState.FavoriteList)
         view.showProductList(listOfProducts)
     }
 
     override fun filterAllProduct() {
         val listOfProducts = productStorage.getAllProducts()
+        view.changeAppState(AppState.MainList)
         view.showProductList(listOfProducts)
     }
 
