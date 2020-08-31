@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/fl_add_edit_task"
+        android:id="@+id/fl_add_edit_field"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -22,7 +22,7 @@
         app:fabSize="normal"
         app:layout_anchorGravity="bottom|right|end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/fl_add_edit_task"
+        app:layout_constraintEnd_toEndOf="@+id/fl_add_edit_field"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
