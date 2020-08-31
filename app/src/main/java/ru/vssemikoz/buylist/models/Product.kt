@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class Product(
+data class Product(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
     var name: String,
@@ -16,11 +16,4 @@ class Product(
     var isFavorite: Boolean = false,
     @ColumnInfo(name = "is_add")
     var isAdd: Boolean = false
-) :Serializable{
-
-    override fun toString(): String {
-        return "Product(name='$name', price=$price, category='$category', isFavorite=$isFavorite, isAdd=$isAdd)"
-    }
-
-}
-
+) : Serializable

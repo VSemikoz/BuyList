@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class ProductAdapter @Inject constructor(context: Context) : BaseAdapter<Product>(context) {
 
-    var iconicStorage: IconicStorage = LocalIconicStorage()
+    val iconicStorage: IconicStorage = LocalIconicStorage()
 
     public interface OnProductItemClickListener : OnRecyclerItemClickListener {
 

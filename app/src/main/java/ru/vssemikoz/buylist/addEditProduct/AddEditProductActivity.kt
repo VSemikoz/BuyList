@@ -9,13 +9,13 @@ class AddEditProductActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.addedit_product_act)
+        setContentView(R.layout.add_edit_act)
         var addEditProductFragment: AddEditProductFragment? =
-            supportFragmentManager.findFragmentById(R.id.fl_add_edit_task) as AddEditProductFragment?
+            supportFragmentManager.findFragmentById(R.id.fl_add_edit_field) as AddEditProductFragment?
         if (addEditProductFragment == null) {
             addEditProductFragment = AddEditProductFragment()
             ActivityUtils.addFragmentToActivity(
-                supportFragmentManager, addEditProductFragment, R.id.fl_add_edit_task
+                supportFragmentManager, addEditProductFragment, R.id.fl_add_edit_field
             )
         }
     }
