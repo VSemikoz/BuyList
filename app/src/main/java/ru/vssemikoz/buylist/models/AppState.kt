@@ -1,9 +1,9 @@
-package ru.vssemikoz.buylist.data
+package ru.vssemikoz.buylist.models
 
 enum class AppState{
     MainList,
     FavoriteList,
     AddList,
     SearchList,
-    GroupeList
+    CategoryList
 }
