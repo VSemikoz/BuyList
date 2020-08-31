@@ -1,14 +1,15 @@
-package ru.vssemikoz.buylist.data
+package ru.vssemikoz.buylist.data.localStorage
 
-import android.util.Log
+import ru.vssemikoz.buylist.data.ProductDao
+import ru.vssemikoz.buylist.data.ProductStorage
 import ru.vssemikoz.buylist.models.Product
 import javax.inject.Inject
 
-class LocalProductsStorage @Inject constructor(appDB: AppDB) : ProductStorage {
+class LocalProductsStorage @Inject constructor(appDB: LocalAppDB) :
+    ProductStorage {
     private val productDao: ProductDao = appDB.productDao()
 
     override fun getAllProducts(): List<Product> {
-        Log.d("LocalProductsStorage", "${productDao.allProducts()}")
         return productDao.allProducts()
     }
 

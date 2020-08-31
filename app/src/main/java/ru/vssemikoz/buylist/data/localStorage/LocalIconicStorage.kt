@@ -1,8 +1,9 @@
-package ru.vssemikoz.buylist.data
+package ru.vssemikoz.buylist.data.localStorage
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import ru.vssemikoz.buylist.R
+import ru.vssemikoz.buylist.data.IconicStorage
 
 class LocalIconicStorage: IconicStorage {
     private var STAR_IS_FOLLOWED: Drawable? = null

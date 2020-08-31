@@ -32,6 +32,4 @@ interface ProductDao {
 
     @Query("SELECT * FROM Product WHERE is_add == 1")
     fun getAddedProducts(): List<Product>
-
-
 }
