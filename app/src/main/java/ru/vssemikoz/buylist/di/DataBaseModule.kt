@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ru.vssemikoz.buylist.data.AppDB
+import ru.vssemikoz.buylist.data.localStorage.LocalAppDB
 
 
 @Module
 class DataBaseModule {
     @Provides
-    fun provideDataBase(context: Context): AppDB {
-        return Room.databaseBuilder<AppDB>(
+    fun provideDataBase(context: Context): LocalAppDB {
+        return Room.databaseBuilder<LocalAppDB>(
             context,
-            AppDB::class.java, "product_data_base"
+            LocalAppDB::class.java, "product_data_base"
         )
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()
