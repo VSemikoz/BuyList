@@ -44,7 +44,7 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
         productPriceTV = root.findViewById(R.id.et_product_price)
         productCategorySp = root.findViewById(R.id.sp_product_category)
         activity?.apply {
-            addEditFAB = findViewById(R.id.fab_edit_task_done)
+            addEditFAB = findViewById(R.id.fab_category_add)
         }
         addEditFAB?.setOnClickListener {
             if (fieldsIsNotEmpty()) {

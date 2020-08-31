@@ -1,7 +1,7 @@
 package ru.vssemikoz.buylist.addEditProduct
 
 import ru.vssemikoz.buylist.MainApplication
-import ru.vssemikoz.buylist.data.LocalProductsStorage
+import ru.vssemikoz.buylist.data.localStorage.LocalProductsStorage
 import ru.vssemikoz.buylist.models.Product
 import javax.inject.Inject
 

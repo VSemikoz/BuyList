@@ -11,11 +11,11 @@ class AddEditProductActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_edit_act)
         var addEditProductFragment: AddEditProductFragment? =
-            supportFragmentManager.findFragmentById(R.id.fl_add_edit_field) as AddEditProductFragment?
+            supportFragmentManager.findFragmentById(R.id.fl_add_edit_main_list) as AddEditProductFragment?
         if (addEditProductFragment == null) {
             addEditProductFragment = AddEditProductFragment()
             ActivityUtils.addFragmentToActivity(
-                supportFragmentManager, addEditProductFragment, R.id.fl_add_edit_field
+                supportFragmentManager, addEditProductFragment, R.id.fl_add_edit_main_list
             )
         }
     }
