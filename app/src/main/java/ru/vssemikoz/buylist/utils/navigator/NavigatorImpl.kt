@@ -30,7 +30,7 @@ class NavigatorImpl @Inject constructor(val context: Context) : Navigator {
         listener: AddEditCategoryDialogFragment.OnButtonClickedListener
     ) {
         AddEditCategoryDialogFragment(listener).apply {
-            if (category != null){
+            if (category != null) {
                 val bundle = Bundle()
                 bundle.putSerializable("Category", category)
                 arguments = bundle
