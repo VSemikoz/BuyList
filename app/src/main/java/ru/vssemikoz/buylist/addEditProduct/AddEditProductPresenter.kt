@@ -24,8 +24,7 @@ class AddEditProductPresenter @Inject constructor() : AddEditProductContract.Pre
         view.onProductSaved()
     }
 
-    override fun setProductToSetById(id: Int) {
-        val product = productStorage.getProductById(id)
+    override fun setProductToSetById(product: Product) {
         view.showProduct(product)
     }
 

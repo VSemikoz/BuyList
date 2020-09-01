@@ -40,6 +40,13 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
     }
 
     private fun initViews(root: View) {
+        activity?.intent?.extras.let {
+            if (it != null) {
+                val product = it.getSerializable("Product") as Product
+                mPresenter.setProductToSetById(product)
+            }
+        }
+
         productNameTV = root.findViewById(R.id.et_product_name)
         productPriceTV = root.findViewById(R.id.et_product_price)
         productCategorySp = root.findViewById(R.id.sp_product_category)
@@ -59,13 +66,6 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
             }
 
         }
-
-        val extras = activity?.intent?.extras
-        if (extras != null) {
-            val id = extras.getInt("productId")
-            mPresenter.setProductToSetById(id)
-        }
-
     }
 
     private fun fieldsIsNotEmpty(): Boolean = productNameTV?.text != "" &&
