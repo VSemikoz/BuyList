@@ -79,7 +79,6 @@ class CategoryListFragment @Inject constructor() : Fragment(), CategoryListContr
                     mPresenter.changeCategory(it)
                 }
             }
-
         }
 
     }
