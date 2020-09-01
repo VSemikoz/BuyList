@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseViewHolder<T>>() {
-    var  items: List<T>? = null
+    var items: List<T>? = null
     var listener: OnRecyclerItemClickListener? = null
 
 
@@ -26,8 +26,6 @@ abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseV
 
     override fun getItemCount(): Int = items?.size ?: 0
 
-//    abstract fun getTouchHelper(): ItemTouchHelper
-
     fun deleteItem(position: Int) {
         items!!.toMutableList().let {
             it.removeAt(position)
@@ -35,5 +33,14 @@ abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseV
         }
         notifyItemRemoved(position)
     }
+
+    fun insertItem(item: T) {
+        items!!.toMutableList().let {
+            it.add(item)
+            items = it
+        }
+        notifyItemInserted(items!!.size)
+    }
+
 }
 
