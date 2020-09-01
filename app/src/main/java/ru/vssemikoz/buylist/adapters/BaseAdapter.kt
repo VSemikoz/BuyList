@@ -2,7 +2,6 @@ package ru.vssemikoz.buylist.adapters
 
 import android.content.Context
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseViewHolder<T>>() {
@@ -16,8 +15,6 @@ abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseV
 
     interface OnRecyclerItemClickListener {
         fun onRecyclerItemClick(position: Int)
-
-//        fun onRecyclerItemSwipe(position: Int)
     }
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T>
