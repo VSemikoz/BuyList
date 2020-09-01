@@ -113,6 +113,7 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
             override fun onRecyclerItemSwipe(position: Int) {
                 adapter.items?.get(position)?.also {
                     mPresenter.deleteProduct(it)
+                    adapter.deleteItem(position)
                 }
             }
         }
