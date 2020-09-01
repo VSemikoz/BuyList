@@ -6,7 +6,7 @@ import ru.vssemikoz.buylist.models.Category
 
 interface CategoryListContract {
     interface View : BaseView<Presenter> {
-        fun openAddEditCategory(category: Category)
+        fun openAddEditCategory(category: Category?)
 
         fun showCategoryList(categories: List<Category>)
 

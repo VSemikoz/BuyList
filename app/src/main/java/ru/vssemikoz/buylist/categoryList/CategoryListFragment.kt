@@ -13,6 +13,7 @@ import ru.vssemikoz.buylist.MainApplication
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.adapters.BaseAdapter
 import ru.vssemikoz.buylist.adapters.CategoryAdapter
+import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogFragment
 import ru.vssemikoz.buylist.models.Category
 import ru.vssemikoz.buylist.utils.navigator.Navigator
 import javax.inject.Inject
@@ -53,7 +54,7 @@ class CategoryListFragment @Inject constructor() : Fragment(), CategoryListContr
         activity?.apply {
             addProductFAB = findViewById(R.id.fab_category_add)
         }
-        addProductFAB?.setOnClickListener { navigator.openAddEditCategory(null) }
+        addProductFAB?.setOnClickListener { openAddEditCategory(null) }
         initRecyclerView()
     }
 
@@ -70,7 +71,7 @@ class CategoryListFragment @Inject constructor() : Fragment(), CategoryListContr
             override fun onDeleteItemClick(position: Int) {
                 adapter.items?.get(position)?.also {
                     mPresenter.deleteCategory(it)
-                    adapter.notifyItemRemoved(position)
+                    adapter.deleteItem(position)
                 }
             }
 
@@ -80,11 +81,15 @@ class CategoryListFragment @Inject constructor() : Fragment(), CategoryListContr
                 }
             }
         }
-
     }
 
-    override fun openAddEditCategory(category: Category) {
-        navigator.openAddEditCategory(category.id)
+    override fun openAddEditCategory(category: Category?) {
+        navigator.openAddEditCategory(category, this,
+            object : AddEditCategoryDialogFragment.OnButtonClickedListener {
+                override fun onAddClicked(category: Category) {
+                    adapter.insertItem(category)
+                }
+            })
     }
 
     override fun showCategoryList(categories: List<Category>) {
