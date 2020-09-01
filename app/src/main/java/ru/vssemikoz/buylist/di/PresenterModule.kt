@@ -2,6 +2,8 @@ package ru.vssemikoz.buylist.di
 
 import dagger.Module
 import dagger.Provides
+import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryContract
+import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogPresenter
 import ru.vssemikoz.buylist.addEditProduct.AddEditProductContract
 import ru.vssemikoz.buylist.addEditProduct.AddEditProductPresenter
 import ru.vssemikoz.buylist.categoryList.CategoryListContract
@@ -23,6 +25,11 @@ class PresenterModule {
 
     @Provides
     fun provideCategoryListPresenter(presenter: CategoryListPresenter): CategoryListContract.Presenter {
+        return presenter
+    }
+
+    @Provides
+    fun provideAddEditCategoryPresenter(presenter: AddEditCategoryDialogPresenter): AddEditCategoryContract.Presenter {
         return presenter
     }
 }

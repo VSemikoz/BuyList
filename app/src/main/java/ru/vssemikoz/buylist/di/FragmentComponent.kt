@@ -1,6 +1,7 @@
 package ru.vssemikoz.buylist.di
 
 import dagger.Subcomponent
+import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogFragment
 import ru.vssemikoz.buylist.addEditProduct.AddEditProductFragment
 import ru.vssemikoz.buylist.categoryList.CategoryListFragment
 import ru.vssemikoz.buylist.productLists.ProductListsFragment
@@ -21,4 +22,6 @@ public interface FragmentComponent {
     fun inject(fragment: AddEditProductFragment?)
 
     fun inject(fragment: CategoryListFragment?)
+
+    fun inject(dialogFragment: AddEditCategoryDialogFragment?)
 }
