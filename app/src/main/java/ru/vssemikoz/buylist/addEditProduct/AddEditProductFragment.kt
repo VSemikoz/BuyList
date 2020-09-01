@@ -58,19 +58,17 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
                 val currProduct = Product(
                     name = productNameTV?.text.toString(),
                     price = productPriceTV?.text.toString().toDouble()
-//                   TODO category = productCategorySp?.selectedItem.toString()
                 )
                 mPresenter.saveProduct(currProduct)
             } else {
 //                TODO Accent on empty fields
             }
-
         }
     }
 
-    private fun fieldsIsNotEmpty(): Boolean = productNameTV?.text != "" &&
-            productPriceTV?.text != ""
-//      TODO      productCategorySp?.selectedItem != null
+    private fun fieldsIsNotEmpty(): Boolean = productNameTV?.text!!.isNotEmpty() &&
+            productPriceTV?.text!!.isNotEmpty()
+//      TODO productCategorySp?.selectedItem != null
 
     override fun showProduct(product: Product) {
         productNameTV?.text = product.name
