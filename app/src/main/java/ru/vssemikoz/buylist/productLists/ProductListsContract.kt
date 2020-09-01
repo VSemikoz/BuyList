@@ -9,7 +9,7 @@ interface ProductListsContract {
 
     interface View : BaseView<Presenter> {
 
-        fun openAddEditProduct(productId: Int?)
+        fun openAddEditProduct(product: Product?)
 
         fun showProductList(products: List<Product>)
 

@@ -80,8 +80,8 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
         adapter.listener = object : ProductAdapter.OnProductItemClickListener {
 
             override fun onRecyclerItemClick(position: Int) {
-                val productID = adapter.items?.get(position)?.id
-                openAddEditProduct(productID)
+                val product = adapter.items?.get(position)
+                openAddEditProduct(product)
             }
 
             override fun onChangeFavoriteStateClick(position: Int) {
@@ -123,8 +123,8 @@ class ProductListsFragment @Inject constructor() : Fragment(), ProductListsContr
         mPresenter.subscribe()
     }
 
-    override fun openAddEditProduct(productId: Int?) {
-        navigator.openAddEditProduct(productId)
+    override fun openAddEditProduct(product: Product?) {
+        navigator.openAddEditProduct(product)
     }
 
     override fun showProductList(products: List<Product>) {
