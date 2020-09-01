@@ -43,7 +43,7 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
         activity?.intent?.extras.let {
             if (it != null) {
                 val product = it.getSerializable("Product") as Product
-                mPresenter.setProductToSetById(product)
+                showProduct(product)
             }
         }
 

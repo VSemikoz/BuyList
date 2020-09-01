@@ -20,7 +20,5 @@ interface AddEditProductContract {
 
         fun saveProduct(product: Product)
 
-        fun setProductToSetById(product: Product)
-
     }
 }
