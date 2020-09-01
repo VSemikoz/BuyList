@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import ru.vssemikoz.buylist.data.CategoryDao
 import ru.vssemikoz.buylist.data.ProductDao
 import ru.vssemikoz.buylist.models.Category
 import ru.vssemikoz.buylist.models.Product
+import ru.vssemikoz.buylist.utils.navigator.typeConverter.CategoryConverter
 
 @Database(entities = [Product::class, Category::class], version = 3, exportSchema = false)
+@TypeConverters(CategoryConverter::class)
 abstract class LocalAppDB : RoomDatabase() {
     abstract fun productDao(): ProductDao
 
