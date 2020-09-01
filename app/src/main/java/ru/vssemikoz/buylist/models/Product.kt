@@ -11,7 +11,7 @@ data class Product(
     var id: Int? = null,
     var name: String,
     var price: Double,
-    var category: String = "default",
+    var category: Category,
     @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean = false,
     @ColumnInfo(name = "is_add")
