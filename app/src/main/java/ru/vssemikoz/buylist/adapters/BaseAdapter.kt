@@ -2,11 +2,13 @@ package ru.vssemikoz.buylist.adapters
 
 import android.content.Context
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T>(val context: Context) : RecyclerView.Adapter<BaseViewHolder<T>>() {
     var items: List<T>? = null
     var listener: OnRecyclerItemClickListener? = null
+    var windowManager: WindowManager? = null
 
 
     open fun setOnItemClickListener(listener: OnRecyclerItemClickListener?) {

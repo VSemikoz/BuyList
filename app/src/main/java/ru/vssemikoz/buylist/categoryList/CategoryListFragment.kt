@@ -61,6 +61,7 @@ class CategoryListFragment @Inject constructor() : Fragment(), CategoryListContr
     private fun initRecyclerView() {
         val numberOfColumns = 3
         recyclerView.layoutManager = GridLayoutManager(context, numberOfColumns)
+        adapter.windowManager = activity!!.windowManager
         recyclerView.adapter = adapter
         adapter.listener = object : CategoryAdapter.OnCategoryItemClickListener {
 
