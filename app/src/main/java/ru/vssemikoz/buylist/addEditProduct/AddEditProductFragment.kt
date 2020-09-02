@@ -13,6 +13,7 @@ import ru.vssemikoz.buylist.MainApplication
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.models.Category
 import ru.vssemikoz.buylist.models.Product
+import ru.vssemikoz.buylist.utils.animations.AnimationImpl
 import ru.vssemikoz.buylist.utils.navigator.Navigator
 import ru.vssemikoz.buylist.utils.navigator.typeConverter.CategoryConverter
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
     lateinit var navigator: Navigator
 
     private lateinit var availableCategories: List<Category>
-    private var sendProduct: Product? = null
+    private var productToChange: Product? = null
     private var productNameTV: TextView? = null
     private var productPriceTV: TextView? = null
     private var productCategorySp: Spinner? = null
@@ -37,7 +38,7 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
         mPresenter.setView(this)
         activity?.intent?.extras.let {
             if (it != null) {
-                sendProduct = it.getSerializable("Product") as Product
+                productToChange = it.getSerializable("Product") as Product
             }
         }
     }
@@ -59,22 +60,26 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
 
         addEditFAB?.setOnClickListener {
             if (fieldsIsNotEmpty()) {
-                if (sendProduct == null) mPresenter.saveProduct(Product(
-                    name = productNameTV?.text.toString(),
-                    price = productPriceTV?.text.toString().toDouble(),
-                    category = CategoryConverter.fromCategoryName(productCategorySp?.selectedItem.toString())
-                ))
-                else mPresenter.updateProduct(sendProduct!!.apply {
-                    name = productNameTV?.text.toString()
-                    price = productPriceTV?.text.toString().toDouble()
-                    category = CategoryConverter.fromCategoryName(productCategorySp?.selectedItem.toString())
+                val productToSave = collectDataToGetProduct()
+                if (productToChange == null) mPresenter.saveProduct(productToSave)
+                else mPresenter.updateProduct(productToSave.apply {
+                    id = productToChange?.id
                 })
             } else {
-//                TODO Accent on empty fields
+                AnimationImpl.accentEmptyField(productNameTV!!)
+                AnimationImpl.accentEmptyField(productPriceTV!!)
             }
         }
 
-        if (sendProduct != null) showProduct(sendProduct!!)
+        if (productToChange != null) showProduct(productToChange!!)
+    }
+
+    private fun collectDataToGetProduct(): Product{
+        return Product(
+            name = productNameTV?.text.toString(),
+            price = productPriceTV?.text.toString().toDouble(),
+            category = CategoryConverter.fromCategoryName(productCategorySp?.selectedItem.toString())
+        )
     }
 
     private fun setupSpinner() {
