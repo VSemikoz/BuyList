@@ -1,10 +1,12 @@
 package ru.vssemikoz.buylist.addEditProduct
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ListPopupWindow
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -16,12 +18,14 @@ import ru.vssemikoz.buylist.models.Product
 import ru.vssemikoz.buylist.utils.animations.AnimationImpl
 import ru.vssemikoz.buylist.utils.navigator.Navigator
 import ru.vssemikoz.buylist.utils.navigator.typeConverter.CategoryConverter
+import java.lang.reflect.Field
 import javax.inject.Inject
 
 
 class AddEditProductFragment : Fragment(), AddEditProductContract.View {
     @Inject
     lateinit var mPresenter: AddEditProductContract.Presenter
+
     @Inject
     lateinit var navigator: Navigator
 
@@ -74,7 +78,7 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
         if (productToChange != null) showProduct(productToChange!!)
     }
 
-    private fun collectDataToGetProduct(): Product{
+    private fun collectDataToGetProduct(): Product {
         return Product(
             name = productNameTV?.text.toString(),
             price = productPriceTV?.text.toString().toDouble(),
@@ -83,15 +87,20 @@ class AddEditProductFragment : Fragment(), AddEditProductContract.View {
     }
 
     private fun setupSpinner() {
+        val popup: Field = Spinner::class.java.getDeclaredField("mPopup")
+        popup.isAccessible = true
+        val popupWindow = popup[productCategorySp] as ListPopupWindow
+        popupWindow.height = 500
+
         availableCategories = mPresenter.getCategories()
         val categoriesNames = availableCategories.map { it.name }
-        ArrayAdapter(
-            context!!, android.R.layout.simple_spinner_item, categoriesNames
-        ).let {
-            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            productCategorySp!!.adapter = it
-        }
+        ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item, categoriesNames)
+            .let {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                productCategorySp!!.adapter = it
+            }
     }
+
 
     private fun fieldsIsNotEmpty(): Boolean = productNameTV?.text!!.isNotEmpty() &&
             productPriceTV?.text!!.isNotEmpty()
