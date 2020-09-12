@@ -13,7 +13,7 @@ import ru.vssemikoz.buylist.MainApplication
 import ru.vssemikoz.buylist.R
 import ru.vssemikoz.buylist.adapters.BaseAdapter
 import ru.vssemikoz.buylist.adapters.CategoryAdapter
-import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogFragment
+import ru.vssemikoz.buylist.addEditCategory.AddEditCategoryDialogFragment
 import ru.vssemikoz.buylist.models.Category
 import ru.vssemikoz.buylist.utils.navigator.Navigator
 import javax.inject.Inject

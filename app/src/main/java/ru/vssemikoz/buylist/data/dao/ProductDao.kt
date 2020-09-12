@@ -1,4 +1,4 @@
-package ru.vssemikoz.buylist.data
+package ru.vssemikoz.buylist.data.dao
 
 import androidx.room.*
 import ru.vssemikoz.buylist.models.Product

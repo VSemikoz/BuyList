@@ -3,7 +3,7 @@ package ru.vssemikoz.buylist.utils.navigator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogFragment
+import ru.vssemikoz.buylist.addEditCategory.AddEditCategoryDialogFragment
 import ru.vssemikoz.buylist.addEditProduct.AddEditProductActivity
 import ru.vssemikoz.buylist.categoryList.CategoryListActivity
 import ru.vssemikoz.buylist.categoryList.CategoryListFragment

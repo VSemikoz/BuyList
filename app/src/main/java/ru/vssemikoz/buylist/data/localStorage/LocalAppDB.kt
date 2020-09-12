@@ -5,8 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ru.vssemikoz.buylist.data.CategoryDao
-import ru.vssemikoz.buylist.data.ProductDao
+import ru.vssemikoz.buylist.data.dao.CategoryDao
+import ru.vssemikoz.buylist.data.dao.ProductDao
 import ru.vssemikoz.buylist.models.Category
 import ru.vssemikoz.buylist.models.Product
 import ru.vssemikoz.buylist.utils.navigator.typeConverter.CategoryConverter

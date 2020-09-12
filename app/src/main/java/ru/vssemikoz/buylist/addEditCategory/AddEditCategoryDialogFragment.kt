@@ -1,4 +1,4 @@
-package ru.vssemikoz.buylist.addEditCategoryDialog
+package ru.vssemikoz.buylist.addEditCategory
 
 import android.os.Bundle
 import android.view.LayoutInflater

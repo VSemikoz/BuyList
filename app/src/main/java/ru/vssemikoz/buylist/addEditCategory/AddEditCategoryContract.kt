@@ -1,4 +1,4 @@
-package ru.vssemikoz.buylist.addEditCategoryDialog
+package ru.vssemikoz.buylist.addEditCategory
 
 import ru.vssemikoz.buylist.models.Category
 

@@ -2,8 +2,8 @@ package ru.vssemikoz.buylist.di
 
 import dagger.Module
 import dagger.Provides
-import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryContract
-import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogPresenter
+import ru.vssemikoz.buylist.addEditCategory.AddEditCategoryContract
+import ru.vssemikoz.buylist.addEditCategory.AddEditCategoryDialogPresenter
 import ru.vssemikoz.buylist.addEditProduct.AddEditProductContract
 import ru.vssemikoz.buylist.addEditProduct.AddEditProductPresenter
 import ru.vssemikoz.buylist.categoryList.CategoryListContract

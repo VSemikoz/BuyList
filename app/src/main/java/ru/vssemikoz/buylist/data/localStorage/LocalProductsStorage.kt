@@ -1,6 +1,6 @@
 package ru.vssemikoz.buylist.data.localStorage
 
-import ru.vssemikoz.buylist.data.ProductDao
+import ru.vssemikoz.buylist.data.dao.ProductDao
 import ru.vssemikoz.buylist.data.ProductStorage
 import ru.vssemikoz.buylist.models.Product
 import javax.inject.Inject

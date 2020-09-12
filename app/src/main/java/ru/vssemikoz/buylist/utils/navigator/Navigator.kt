@@ -1,6 +1,6 @@
 package ru.vssemikoz.buylist.utils.navigator
 
-import ru.vssemikoz.buylist.addEditCategoryDialog.AddEditCategoryDialogFragment
+import ru.vssemikoz.buylist.addEditCategory.AddEditCategoryDialogFragment
 import ru.vssemikoz.buylist.categoryList.CategoryListFragment
 import ru.vssemikoz.buylist.models.Category
 import ru.vssemikoz.buylist.models.Product
